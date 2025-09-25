@@ -9,8 +9,10 @@ Being a simple model of a battery energy storage system, participating in half-h
 
 ## Decisions
 
-- Use Gurobi solver, because it's an MIQP problem.
-- Limit to max 50 timesteps, because Gurobi limits to 200 variables without a license.
+- ~~Use Gurobi solver, because it's an MIQP problem.~~ Actually it's not, I'd just mistakenly added the decision
+    variables as factors in the objective.
+- ~~Limit to max 50 timesteps, because Gurobi limits to 200 variables without a license.~~
+- Allow rounding error on validation of (charge rate * discharge rate) <= 1e8.
 
 ## TODO
 
