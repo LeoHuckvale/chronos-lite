@@ -5,7 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "pypsa>=0.35.2",
+    "linopy[solvers]>=0.5.7",
+    "pandas>=2.3.2",
 ]
 
 [dependency-groups]
