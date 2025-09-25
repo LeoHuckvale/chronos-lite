@@ -2,6 +2,15 @@
 
 Being a simple model of a battery energy storage system, participating in half-hourly and hourly wholesale markets.
 
+## Log
+
+1. Implemented a simple model in Jupyter notebook, in order to familiarise myself with linopy.
+    This model only considers the battery interacting with the 30min market, and not subject to degradation.
+
+## Decisions
+
+- Use Gurobi solver, because it's an MIQP problem.
+- Limit to max 50 timesteps, because Gurobi limits to 200 variables without a license.
 
 ## TODO
 
