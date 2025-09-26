@@ -74,7 +74,7 @@ Being a simple model of a battery energy storage system, participating in half-h
 - [ ] Nice-to-haves
     - [ ] Model markets as a separate model dimension
     - [ ] Use plotly instead of matplotlib
-    - [ ] Add .editorconfig
+    - [x] Add .editorconfig
     - [ ] Add vertical ticks at 30/60 mins for charge/discharge plots
     - [x] Remove unnecessary dependency on linopy[solvers] (just need linopy and highspy)
     - [ ] Utilise full dataset and incorporate data cleaning
