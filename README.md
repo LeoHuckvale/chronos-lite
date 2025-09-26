@@ -16,11 +16,14 @@ Being a simple model of a battery energy storage system, participating in half-h
 
 ## TODO
 
-- [ ] Project plan 👇
+- [x] Project plan 👇
+- [ ] Algorithm prototyping
+    - [x] Simple model, arbitrage with one market
+    - [ ] Arbitrage with two markets
 - [ ] MVP
     - [ ] Development framework
         - [ ] taskipy
-        - [ ] jupyter
+        - [x] jupyter
     - [ ] QA framework
         - [ ] Git pre-commit hook
         - [ ] Unit tests
