@@ -52,6 +52,7 @@ Being a simple model of a battery energy storage system, participating in half-h
                 discharge into Market 2 for its 1 hour interval, but it could not commit 5 MW to both markets at
                 the same time, and could not discharge more than 5 MWh of energy over that interval
         - [ ] Battery cannot charge and discharge at the same time
+        - [ ] Output solution data
         - [ ] Output financial summary
             - [ ] Operational costs
             - [ ] Import costs
@@ -70,3 +71,10 @@ Being a simple model of a battery energy storage system, participating in half-h
         - [ ] Choose GitHub/GitLab
         - [ ] Provision runner
         - [ ] Configure
+- [ ] Nice-to-haves
+    - [ ] Model markets as a separate model dimension
+    - [ ] Use plotly instead of matplotlib
+    - [ ] Add .editorconfig
+    - [ ] Add vertical ticks at 30/60 mins for charge/discharge plots
+    - [ ] Remove unnecessary dependency on linopy[solvers] (just need linopy and highspy)
+    - [ ] Utilise full dataset and incorporate data cleaning
