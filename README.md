@@ -21,8 +21,8 @@ Being a simple model of a battery energy storage system, participating in half-h
     - [x] Simple model, arbitrage with one market
     - [x] Arbitrage with two markets
 - [ ] MVP
-    - [ ] Development framework
-        - [ ] taskipy
+    - [x] Development framework
+        - [x] taskipy
         - [x] jupyter
     - [ ] QA framework
         - [ ] Git pre-commit hook
