@@ -288,7 +288,8 @@ name = "chronos-lite"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "linopy", extra = ["solvers"] },
+    { name = "highspy" },
+    { name = "linopy" },
     { name = "pandas" },
 ]
 
@@ -300,7 +301,8 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "linopy", extras = ["solvers"], specifier = ">=0.5.7" },
+    { name = "highspy", specifier = ">=1.11.0" },
+    { name = "linopy", specifier = ">=0.5.7" },
     { name = "pandas", specifier = ">=2.3.2" },
 ]
 
@@ -402,17 +404,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/93/8a/68a4ec5c55a2971213d29a9374913f7e9f18581945a7a31d1a39b5d2dfe5/contourpy-1.3.3-cp314-cp314t-win32.whl", hash = "sha256:e74a9a0f5e3fff48fb5a7f2fd2b9b70a3fe014a67522f79b7cca4c0c7e43c9ae", size = 202428, upload-time = "2025-07-26T12:02:48.691Z" },
     { url = "https://files.pythonhosted.org/packages/fa/96/fd9f641ffedc4fa3ace923af73b9d07e869496c9cc7a459103e6e978992f/contourpy-1.3.3-cp314-cp314t-win_amd64.whl", hash = "sha256:13b68d6a62db8eafaebb8039218921399baf6e47bf85006fd8529f2a08ef33fc", size = 250331, upload-time = "2025-07-26T12:02:50.137Z" },
     { url = "https://files.pythonhosted.org/packages/ae/8c/469afb6465b853afff216f9528ffda78a915ff880ed58813ba4faf4ba0b6/contourpy-1.3.3-cp314-cp314t-win_arm64.whl", hash = "sha256:b7448cb5a725bb1e35ce88771b86fba35ef418952474492cf7c764059933ff8b", size = 203831, upload-time = "2025-07-26T12:02:51.449Z" },
-]
-
-[[package]]
-name = "coptpy"
-version = "7.2.11"
-source = { registry = "https://pypi.org/simple" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/11/9b/112f87c095d7ebeb43258dc4f005fbc46634709068ca48788faeffe6651d/coptpy-7.2.11-cp313-cp313-macosx_10_9_universal2.whl", hash = "sha256:5a30a32cb87fdb2ddfa30e633cec973791a8810a6951c0abfcc73d2c960d6de3", size = 25420441, upload-time = "2025-08-01T10:57:26.628Z" },
-    { url = "https://files.pythonhosted.org/packages/8e/08/b640fff7db4be4a127b017e3281e45294646613bedc6ca3171106ab370a3/coptpy-7.2.11-cp313-cp313-manylinux2014_aarch64.whl", hash = "sha256:4293018698c3f9279b99a2e3c33f0929b1ad9becf38ae221aa385f710079b15a", size = 14648816, upload-time = "2025-08-01T10:57:30.476Z" },
-    { url = "https://files.pythonhosted.org/packages/65/49/c0ff6dc55f4ebcb732b91a24afb653dd563cabf1c3a48463357791c11e6f/coptpy-7.2.11-cp313-cp313-manylinux2014_x86_64.whl", hash = "sha256:14211feeb2e035ca9a6681ec88a854aceea9b54d66664b65da8713648606cfd1", size = 20735734, upload-time = "2025-08-01T10:57:34.491Z" },
-    { url = "https://files.pythonhosted.org/packages/cc/20/0ed13d6d24acbb0cefc25d3363528abeacf8eea2057250a5f2d326a359ff/coptpy-7.2.11-cp313-cp313-win_amd64.whl", hash = "sha256:fd381b66f602fab592916f77fc3ae294449c1b461003611908e61d608d9f3ac8", size = 19556962, upload-time = "2025-08-01T10:57:38.503Z" },
 ]
 
 [[package]]
@@ -655,17 +646,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/39/24/33db22342cf4a2ea27c9955e6713140fedd51e8b141b5ce5260897020f1a/googleapis_common_protos-1.70.0.tar.gz", hash = "sha256:0e1b44e0ea153e6594f9f394fef15193a68aaaea2d843f83e2742717ca753257", size = 145903, upload-time = "2025-04-14T10:17:02.924Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/86/f1/62a193f0227cf15a920390abe675f386dec35f7ae3ffe6da582d3ade42c7/googleapis_common_protos-1.70.0-py3-none-any.whl", hash = "sha256:b8bfcca8c25a2bb253e0e0b0adaf8c00773e5e6af6fd92397576680b807e0fd8", size = 294530, upload-time = "2025-04-14T10:17:01.271Z" },
-]
-
-[[package]]
-name = "gurobipy"
-version = "12.0.3"
-source = { registry = "https://pypi.org/simple" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/5e/95/f0e5b5cf85298f42482cf4e53d8114c45bb962f55195d531fe4e62b5afa1/gurobipy-12.0.3-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:a8552e47673cb6f1fd351edf8fcad86b02f832cbfb57d90ef21e0397e96d138e", size = 12183439, upload-time = "2025-07-15T07:20:44.224Z" },
-    { url = "https://files.pythonhosted.org/packages/61/6e/aea725b4143faa4eb6878414a91fa74e7871aba0ab9453803a9eeef781c2/gurobipy-12.0.3-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:be05c074141c8a126c8aaeccc41795ab091a666eabb39ca1ff98a74bde81e663", size = 62583451, upload-time = "2025-07-15T07:21:38.825Z" },
-    { url = "https://files.pythonhosted.org/packages/75/47/7b9c63ce2cd85d796403b91a6d211d5c8baac7b694edd94e2151f365d6a9/gurobipy-12.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:79a333766e27fef7902ceeefbcf0279a1ca393a27a72ea62f8e301b21aa17d59", size = 14271076, upload-time = "2025-07-15T07:21:55.102Z" },
-    { url = "https://files.pythonhosted.org/packages/2a/93/b10cd6112c05675fed5c817fd7933c9d4ba3a7039e42cba844a9ac09242a/gurobipy-12.0.3-cp313-cp313-win_amd64.whl", hash = "sha256:e0f9ed55077e622021369bb9df2ca3b00c86b678792a3b1556cc59f67348fab0", size = 11111414, upload-time = "2025-07-15T07:22:05.079Z" },
 ]
 
 [[package]]
@@ -1192,15 +1172,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/28/1e/a1391f38d6d5bca30a91b7adb920d020d11bb345a2214992483fab5a7d23/linopy-0.5.7-py3-none-any.whl", hash = "sha256:ec2d426598aafd5e3a970c2129eaa525a93c789dd8330fd1e5daeedbe5aee322", size = 103663, upload-time = "2025-09-04T20:15:13.888Z" },
 ]
 
-[package.optional-dependencies]
-solvers = [
-    { name = "coptpy" },
-    { name = "gurobipy" },
-    { name = "highspy" },
-    { name = "mosek" },
-    { name = "pyscipopt", marker = "sys_platform != 'darwin'" },
-]
-
 [[package]]
 name = "locket"
 version = "1.0.0"
@@ -1304,20 +1275,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d7/02/a7fb8b21d4d55ac93cdcde9d3638da5dd0ebdd3a4fed76c7725e10b81cbe/mistune-3.1.4.tar.gz", hash = "sha256:b5a7f801d389f724ec702840c11d8fc48f2b33519102fc7ee739e8177b672164", size = 94588, upload-time = "2025-08-29T07:20:43.594Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/7a/f0/8282d9641415e9e33df173516226b404d367a0fc55e1a60424a152913abc/mistune-3.1.4-py3-none-any.whl", hash = "sha256:93691da911e5d9d2e23bc54472892aff676df27a75274962ff9edc210364266d", size = 53481, upload-time = "2025-08-29T07:20:42.218Z" },
-]
-
-[[package]]
-name = "mosek"
-version = "11.0.29"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "numpy" },
-]
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/40/7d/26c9cadd44a86b4907925b5996c73f473ae47f495592a60bea70b2fba375/mosek-11.0.29-cp39-abi3-macosx_11_0_arm64.whl", hash = "sha256:3071ba930929895d32a005c34faa045c4f6b1c900c990ced64d7feac19151b39", size = 8346642, upload-time = "2025-09-26T06:33:26.276Z" },
-    { url = "https://files.pythonhosted.org/packages/f8/33/ad50b8c57a5ac6f7699571507a2ec593d437df69a0c6f17b152f94c4f8fd/mosek-11.0.29-cp39-abi3-manylinux2014_x86_64.whl", hash = "sha256:e9be410ab44eca778c7c6d4173a370c3b6c3b582282c0b180d208ea537418b32", size = 14741231, upload-time = "2025-09-26T06:33:30.238Z" },
-    { url = "https://files.pythonhosted.org/packages/30/64/b1892d097727d3ec8e4fa3e72474facdf1cf43f356f216ebb3d231b387de/mosek-11.0.29-cp39-abi3-manylinux_2_29_aarch64.whl", hash = "sha256:76f550db9548d6817f95b616f249e1d99caeaf3a78c0aa0916ceecb4e4cc887a", size = 10267772, upload-time = "2025-09-26T06:33:34.148Z" },
-    { url = "https://files.pythonhosted.org/packages/59/74/ef1f9df3461e25aa5fb50ad129a7f34b3892e2eba0eed20291c81095cc4c/mosek-11.0.29-cp39-abi3-win_amd64.whl", hash = "sha256:9c1671d3a64de37eb0c9ab737f72f8ee3690aa31b9011ac570eb1b208f5b3fbd", size = 10650724, upload-time = "2025-09-26T06:33:37.794Z" },
 ]
 
 [[package]]
@@ -1791,20 +1748,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f2/a5/181488fc2b9d093e3972d2a472855aae8a03f000592dbfce716a512b3359/pyparsing-3.2.5.tar.gz", hash = "sha256:2df8d5b7b2802ef88e8d016a2eb9c7aeaa923529cd251ed0fe4608275d4105b6", size = 1099274, upload-time = "2025-09-21T04:11:06.277Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/10/5e/1aa9a93198c6b64513c9d7752de7422c06402de6600a8767da1524f9570b/pyparsing-3.2.5-py3-none-any.whl", hash = "sha256:e38a4f02064cf41fe6593d328d0512495ad1f3d8a91c4f73fc401b3079a59a5e", size = 113890, upload-time = "2025-09-21T04:11:04.117Z" },
-]
-
-[[package]]
-name = "pyscipopt"
-version = "5.6.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "numpy" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/13/7c/63321f1f0e85996160d30701a2a224fa3e379b50ab684f88cae3362bdff5/pyscipopt-5.6.0.tar.gz", hash = "sha256:082faf61d294a9661121cdf080c8faa62fc8b84a6160febfb1627ed76e15b9d5", size = 1385243, upload-time = "2025-08-25T16:54:13.972Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/55/d5/7817e07c517dff1827d83db7658c1cdbc84346ef329b69a9f855e317c088/pyscipopt-5.6.0-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:d4a1d755660bbbf3ff67fe97978e652992f7edc2c3d705c7a92d271764afa323", size = 14730838, upload-time = "2025-08-25T16:53:44.587Z" },
-    { url = "https://files.pythonhosted.org/packages/b2/b3/ec29c834c21ed240403bb1e0e0fa48cbe7702bc4b9e28ab9eb6b1f3b6dbf/pyscipopt-5.6.0-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:17fc5fea5398b58cde5443da7f1494129c255cf9270122a6a6fe75f377823333", size = 15896839, upload-time = "2025-08-25T16:53:46.992Z" },
-    { url = "https://files.pythonhosted.org/packages/b6/f1/46079befe1d5ea3a20a51969f46fdeedec207e5f7193d654601359f80a88/pyscipopt-5.6.0-cp313-cp313-win_amd64.whl", hash = "sha256:e98156ebd358bb5b74cc4b3c0849899acc23a8c9faec2c455d9d798a0a72556d", size = 47083386, upload-time = "2025-08-25T16:53:49.705Z" },
 ]
 
 [[package]]
