@@ -14,6 +14,14 @@ dependencies = [
 dev = [
     "jupyter>=1.1.1",
     "matplotlib>=3.10.6",
+    "pytest>=8.4.2",
     "ruff>=0.13.2",
     "taskipy>=1.14.1",
 ]
+
+[tool.taskipy.tasks]
+qa = "task test && task check"
+test = "pytest"
+check = "ruff check"
+fix = "ruff check --fix"
+format = "ruff format"

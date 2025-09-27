@@ -26,10 +26,10 @@ Being a simple model of a battery energy storage system, participating in half-h
         - [x] jupyter
     - [ ] QA framework
         - [ ] Git pre-commit hook
-        - [ ] Unit tests
-        - [ ] Syntax
+        - [x] Unit tests
+        - [x] Syntax
         - [ ] Types
-        - [ ] Code quality
+        - [x] Code quality
     - [ ] Data model
         - [ ] Market
         - [ ] Battery
