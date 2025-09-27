@@ -30,10 +30,20 @@ Being a simple model of a battery energy storage system, participating in half-h
         - [x] Syntax
         - [x] Types
         - [x] Code quality
-    - [ ] Data model
-        - [ ] Market
-        - [ ] Battery
-    - [ ] Feature development
+    - [ ] Architecture
+        - [ ] Data model
+            - [ ] Market
+            - [ ] Battery
+        - [ ] Optimisation model
+        - [ ] Financial calculations
+            - [ ] Operational costs
+            - [ ] Import costs
+            - [ ] Export revenue
+            - [ ] Capex
+            - [ ] Net profit over data period
+        - [ ] Operational outputs, visualisations
+        - [ ] Execution script
+    - [ ] Feature validation
         - [ ] Battery can charge from a market
         - [ ] Battery can discharge to a market
         - [ ] Battery commits capacity to entire market time interval
@@ -52,13 +62,6 @@ Being a simple model of a battery energy storage system, participating in half-h
                 discharge into Market 2 for its 1 hour interval, but it could not commit 5 MW to both markets at
                 the same time, and could not discharge more than 5 MWh of energy over that interval
         - [ ] Battery cannot charge and discharge at the same time
-        - [ ] Output solution data
-        - [ ] Output financial summary
-            - [ ] Operational costs
-            - [ ] Import costs
-            - [ ] Export revenue
-            - [ ] Capex
-            - [ ] Net profit over data period
 - [ ] Extra credit
     - [ ] Documentation
         - [ ] Sphinx framework
