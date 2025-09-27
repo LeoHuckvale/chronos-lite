@@ -17,11 +17,13 @@ dev = [
     "pytest>=8.4.2",
     "ruff>=0.13.2",
     "taskipy>=1.14.1",
+    "ty>=0.0.1a21",
 ]
 
 [tool.taskipy.tasks]
-qa = "task test && task check"
+qa = "task test && task lint && task typecheck"
 test = "pytest"
-check = "ruff check"
+lint = "ruff check"
+typecheck = "ty check ."
 fix = "ruff check --fix"
 format = "ruff format"

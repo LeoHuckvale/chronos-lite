@@ -28,7 +28,7 @@ Being a simple model of a battery energy storage system, participating in half-h
         - [ ] Git pre-commit hook
         - [x] Unit tests
         - [x] Syntax
-        - [ ] Types
+        - [x] Types
         - [x] Code quality
     - [ ] Data model
         - [ ] Market
