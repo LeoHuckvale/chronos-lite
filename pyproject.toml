@@ -22,7 +22,7 @@ dev = [
 
 [tool.taskipy.tasks]
 qa = "task test && task lint && task typecheck"
-test = "pytest"
+test = "python -m pytest"
 lint = "ruff check"
 typecheck = "ty check ."
 fix = "ruff check --fix"
