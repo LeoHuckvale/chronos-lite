@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import pandas as pd
-import pytest
 
 from chronos.lite.data import load_battery_config, load_market_data
 
