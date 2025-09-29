@@ -12,6 +12,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "chronos-lite",
     "jupyter>=1.1.1",
     "matplotlib>=3.10.6",
     "pytest>=8.4.2",
@@ -27,3 +28,6 @@ lint = "ruff check"
 typecheck = "ty check ."
 fix = "ruff check --fix"
 format = "ruff format"
+
+[tool.uv.sources]
+chronos-lite = { workspace = true }

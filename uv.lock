@@ -295,6 +295,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "chronos-lite" },
     { name = "jupyter" },
     { name = "matplotlib" },
     { name = "pytest" },
@@ -312,6 +313,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "chronos-lite", virtual = "." },
     { name = "jupyter", specifier = ">=1.1.1" },
     { name = "matplotlib", specifier = ">=3.10.6" },
     { name = "pytest", specifier = ">=8.4.2" },
