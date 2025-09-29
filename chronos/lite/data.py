@@ -10,15 +10,13 @@ import os
 import pandas as pd
 
 
-def load_battery_config(path: os.PathLike) -> pd.Series:
+def load_battery_config(path: os.PathLike) -> dict:
     """
     Load battery config from CSV file
 
     path: Path to CSV file containing battery config.
     """
-    series = pd.read_csv(path, index_col=0)["Values"]
-    series.name = "Battery Config"
-    return series
+    return pd.read_csv(path, index_col=0)["Values"].to_dict()
 
 
 def load_market_data(half_hourly_csv: os.PathLike, hourly_csv: os.PathLike) -> pd.DataFrame:

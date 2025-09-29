@@ -9,25 +9,19 @@ TEST_DATA_DIR = Path(__file__).parent / "test_files"
 
 def test_load_battery_config():
     actual_battery_config = load_battery_config(TEST_DATA_DIR / "test_battery_config.csv")
-    expected_battery_config = pd.Series(
-        {
-            "Max charging rate": 1.0,
-            "Max discharging rate": 2.0,
-            "Max storage volume": 3.0,
-            "Battery charging efficiency": 0.04,
-            "Battery discharging efficiency": 0.05,
-            "Lifetime (1)": 6.0,
-            "Lifetime (2)": 7000,
-            "Storage volume degradation rate": 0.008,
-            "Capex": 900000.0,
-            "Fixed Operational Costs": 10000.0,
-        },
-        name="Battery Config",
-    )
-    pd.testing.assert_series_equal(
-        actual_battery_config,
-        expected_battery_config,
-    )
+    expected_battery_config = {
+        "Max charging rate": 1.0,
+        "Max discharging rate": 2.0,
+        "Max storage volume": 3.0,
+        "Battery charging efficiency": 0.04,
+        "Battery discharging efficiency": 0.05,
+        "Lifetime (1)": 6.0,
+        "Lifetime (2)": 7000,
+        "Storage volume degradation rate": 0.008,
+        "Capex": 900000.0,
+        "Fixed Operational Costs": 10000.0,
+    }
+    assert actual_battery_config == expected_battery_config
 
 
 def test_load_market_data():
