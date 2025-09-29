@@ -81,3 +81,4 @@ Being a simple model of a battery energy storage system, participating in half-h
     - [ ] Add vertical ticks at 30/60 mins for charge/discharge plots
     - [x] Remove unnecessary dependency on linopy[solvers] (just need linopy and highspy)
     - [ ] Utilise full dataset and incorporate data cleaning
+    - [ ] Add pandera/pydantic schemas/data models to validate data inputs
