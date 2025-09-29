@@ -74,6 +74,8 @@ Being a simple model of a battery energy storage system, participating in half-h
         - [ ] Choose GitHub/GitLab
         - [ ] Provision runner
         - [ ] Configure
+- [ ] Technical debt
+  - [ ] Ensure that hourly data still aligns correctly if half-hourly data starts at a second half-hour, e.g. 00:30
 - [ ] Nice-to-haves
     - [ ] Model markets as a separate model dimension
     - [ ] Use plotly instead of matplotlib
