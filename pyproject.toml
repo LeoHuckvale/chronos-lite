@@ -19,6 +19,7 @@ dev = [
     "ruff>=0.13.2",
     "taskipy>=1.14.1",
     "ty>=0.0.1a21",
+    "xarray>=2025.9.0",
 ]
 
 [tool.taskipy.tasks]

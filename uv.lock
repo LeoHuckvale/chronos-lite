@@ -302,6 +302,7 @@ dev = [
     { name = "ruff" },
     { name = "taskipy" },
     { name = "ty" },
+    { name = "xarray" },
 ]
 
 [package.metadata]
@@ -320,6 +321,7 @@ dev = [
     { name = "ruff", specifier = ">=0.13.2" },
     { name = "taskipy", specifier = ">=1.14.1" },
     { name = "ty", specifier = ">=0.0.1a21" },
+    { name = "xarray", specifier = ">=2025.9.0" },
 ]
 
 [[package]]
