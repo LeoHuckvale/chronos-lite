@@ -83,4 +83,4 @@ Being a simple model of a battery energy storage system, participating in half-h
     - [ ] Utilise full dataset and incorporate data cleaning
     - [ ] Add pandera/pydantic schemas/data models to validate data inputs
     - [ ] Add bad input data examples to test validation
-
+    - [ ] Refine error codes on Ruff: include doc checks
