@@ -2,8 +2,8 @@
 Max charging rate,1,MW,The maximum power that the battery can import from the grid
 Max discharging rate,2,MW,The maximum power that the battery can export to the grid
 Max storage volume,3,MWh,Maximum volume of energy that the battery can store
-Battery charging efficiency,0.04,-,Fraction of energy imported from grid that is lost prior to storage in the battery
-Battery discharging efficiency,0.05,-,Fraction of energy exported from the battery that is lost prior to reaching the grid
+Battery charging loss,0.04,-,Fraction of energy imported from grid that is lost prior to storage in the battery
+Battery discharging loss,0.05,-,Fraction of energy exported from the battery that is lost prior to reaching the grid
 Lifetime (1),6,years,Maximum battery lifetime in years
 Lifetime (2),7000,cycles,"Maximum battery lifetime in battery cycles equivalent - one cycle is defined as charging up to max storage volume and then discharging all stored energy. This does not have to be done in one go - e.g. charging up to 75%, discharging to 0%, then charging up to 25% and discharging to 0% still counts as one cycle."
 Storage volume degradation rate,0.008,%/cycle,"Percentage loss of storage volume per battery cycle (note: in %, not as a fraction)"

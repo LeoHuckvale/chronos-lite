@@ -51,7 +51,7 @@ class Model(linopy.Model):
             TIMESTEP_DURATION,
             charge_rate_30=self.variables["charge rate 30"],
             charge_rate_60=self.variables["charge rate 60"],
-            charge_efficiency=self.battery_config["Battery charging efficiency"],
+            charge_efficiency=(1 - self.battery_config["Battery charging loss"]),
             discharge_rate_30=self.variables["discharge rate 30"],
             discharge_rate_60=self.variables["discharge rate 60"],
 
@@ -130,12 +130,12 @@ class Model(linopy.Model):
         self.add_objective(
             (
                 self.market_data["Price 30 min (£/MWh)"] * (
-                    self.variables["discharge rate 30"] * self.battery_config["Battery discharging efficiency"]
-                    - self.variables["charge rate 30"] / self.battery_config["Battery charging efficiency"]
+                    self.variables["discharge rate 30"] * (1 - self.battery_config["Battery discharging loss"])
+                    - self.variables["charge rate 30"] / (1 - self.battery_config["Battery charging loss"])
                 ) +
                 self.market_data["Price 60 min (£/MWh)"] * (
-                    self.variables["discharge rate 60"] * self.battery_config["Battery discharging efficiency"]
-                    - self.variables["charge rate 60"] / self.battery_config["Battery charging efficiency"]
+                    self.variables["discharge rate 60"] * (1 - self.battery_config["Battery discharging loss"])
+                    - self.variables["charge rate 60"] / (1 - self.battery_config["Battery charging loss"])
                 )
             ),
             sense="max",

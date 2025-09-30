@@ -30,11 +30,13 @@ Being a simple model of a battery energy storage system, participating in half-h
         - [x] Syntax
         - [x] Types
         - [x] Code quality
-    - [ ] Architecture
-        - [ ] Data model
-            - [ ] Market
-            - [ ] Battery
-        - [ ] Optimisation model
+    - [x] Bugs
+        - [x] Fix battery efficiency/losses
+    - [ ] Features
+        - [x] Data model
+            - [x] Market
+            - [x] Battery
+        - [x] Optimisation model
         - [ ] Financial calculations
             - [ ] Operational costs
             - [ ] Import costs
