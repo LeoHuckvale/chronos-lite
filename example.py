@@ -14,7 +14,7 @@ def main():
     market_data = load_market_data(
         half_hourly_csv=DATA_DIR / "half-hourly-market.csv",
         hourly_csv=DATA_DIR / "hourly-market.csv",
-        nrows=50,  # Limit datasize
+        nrows=500,  # Limit datasize due to memory issues
     )
     model = Model(battery_config, market_data)
     model.solve(solver_name="highs")
