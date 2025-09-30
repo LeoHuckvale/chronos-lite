@@ -53,4 +53,5 @@ def plot_solution(
         label="discharging",
     )
     axis_flow_60.legend()
-    fig.show()
+
+    return fig

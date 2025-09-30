@@ -11,7 +11,7 @@ INITIAL_STORED_ENERGY = 0.0
 
 
 class Model(linopy.Model):
-    def __init__(self, battery_config: pd.Series, market_data: pd.DataFrame):
+    def __init__(self, battery_config: dict, market_data: pd.DataFrame):
         super().__init__(force_dim_names=True)
 
         self.time = market_data.index

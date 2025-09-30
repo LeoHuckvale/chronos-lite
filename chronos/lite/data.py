@@ -53,11 +53,11 @@ def load_market_data(half_hourly_csv: os.PathLike, hourly_csv: os.PathLike, nrow
         names=["Price 30 min (£/MWh)"],
     ).iloc[:, 0]
     half_hourly_market_series.index = pd.to_datetime(half_hourly_market_series.index, format="%d/%m/%Y %H:%M")
-    hourly_market_series = pd.read_csv(
+    hourly_market_series = pd.read_csv(  # ty: ignore [no-matching-overload]
         hourly_csv,
         index_col=0,
         skiprows=1,
-        nrows=nrows/2 if nrows is not None else None,
+        nrows=(nrows/2 if nrows is not None else None),
         names=["Price 60 min (£/MWh)"],
     ).iloc[:, 0]
     hourly_market_series.index = pd.to_datetime(hourly_market_series.index, format="%d/%m/%Y %H:%M")
