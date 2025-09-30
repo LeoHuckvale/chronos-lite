@@ -15,6 +15,7 @@ dev = [
     "chronos-lite",
     "jupyter>=1.1.1",
     "matplotlib>=3.10.6",
+    "pip>=25.2",
     "pytest>=8.4.2",
     "ruff>=0.13.2",
     "taskipy>=1.14.1",
