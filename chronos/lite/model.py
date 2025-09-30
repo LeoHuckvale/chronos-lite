@@ -1,3 +1,5 @@
+import os
+
 import linopy
 import pandas as pd
 
@@ -127,6 +129,18 @@ class Model(linopy.Model):
         """
         if self.solution is None:
             raise RuntimeError("Optimisation hasn't been run. Need to run .solve() method.")
-        df = self.solution.to_dataframe()
-        df["stored energy"] = self.stored_energy.solution
-        return df
+        model_solution_df = self.solution.to_dataframe()
+        stored_energy_df = self.stored_energy.solution.to_dataframe()
+        stored_energy_df.columns = ["stored energy"]
+        return pd.concat([self.market_data, model_solution_df, stored_energy_df], axis=1)
+
+    def solution_to_excel(self, path: os.PathLike):
+        """
+        Output the solution to a file
+        """
+        if self.solution is None:
+            raise RuntimeError("Optimisation hasn't been run. Need to run .solve() method.")
+        df = self.solution_to_dataframe()
+        with pd.ExcelWriter(path, engine="xlsxwriter") as writer:
+            pd.Series(self.battery_config).to_excel(writer, sheet_name="Battery Configuration")
+            df.to_excel(writer, sheet_name="Run Data")

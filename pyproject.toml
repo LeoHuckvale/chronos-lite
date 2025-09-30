@@ -8,6 +8,7 @@ dependencies = [
     "highspy>=1.11.0",
     "linopy>=0.5.7",
     "pandas>=2.3.2",
+    "xlsxwriter>=3.2.9",
 ]
 
 [dependency-groups]
