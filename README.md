@@ -2,17 +2,36 @@
 
 Being a simple model of a battery energy storage system, participating in half-hourly and hourly wholesale markets.
 
-## Log
+## Instructions
 
-1. Implemented a simple model in Jupyter notebook, in order to familiarise myself with linopy.
-    This model only considers the battery interacting with the 30min market, and not subject to degradation.
+Clone the project:
 
-## Decisions
+```
+git clone git@github.com:LeoHuckvale/chronos-lite.git
+cd chronos-lite
+```
 
-- ~~Use Gurobi solver, because it's an MIQP problem.~~ Actually it's not, I'd just mistakenly added the decision
-    variables as factors in the objective.
-- ~~Limit to max 50 timesteps, because Gurobi limits to 200 variables without a license.~~
-- Allow rounding error on validation of (charge rate * discharge rate) <= 1e8.
+Run the example notebook and follow instructions therein:
+
+```
+uv run jupyter notebook example.ipynb
+```
+
+## Development tasks
+
+Run the QA framework (tests + linting + typechecks)
+
+```
+uv run task qa
+```
+
+## Approach
+
+1. Implemented a prototype in Jupyter notebook `00-prototype-linopy.ipynb`, in order to familiarise myself with linopy.
+    a. This model initially only considered the battery interacting with the 30min market, not subject to degradation.
+    b. Later I extended this to cover both 30 and 60min markets, with additional constraints.
+2. Set up a package structure, organising data loading and model construction into separate modules.
+3. Re-implemented prototype code into module structure with tests.
 
 ## TODO
 
@@ -46,8 +65,8 @@ Being a simple model of a battery energy storage system, participating in half-h
         - [ ] Operational outputs, visualisations
         - [ ] Execution script
     - [ ] Feature validation
-        - [ ] Battery can charge from a market
-        - [ ] Battery can discharge to a market
+        - [x] Battery can charge from a market
+        - [x] Battery can discharge to a market
         - [ ] Battery commits capacity to entire market time interval
         - [ ] Battery pays for charging
         - [ ] Battery is paid for discharging
