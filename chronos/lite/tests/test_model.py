@@ -15,6 +15,10 @@ def battery_config():
     return load_battery_config(TEST_DATA_DIR / "test_battery_config.csv")
 
 @pytest.fixture
+def realistic_battery_config():
+    return load_battery_config(TEST_DATA_DIR / "realistic_battery_config.csv")
+
+@pytest.fixture
 def market_data():
     return load_market_data(
         half_hourly_csv=TEST_DATA_DIR / "test_30min_market_data.csv",
@@ -96,5 +100,55 @@ class TestModel:
         # upper bounded at max discharge rate
         assert (model.variables["discharge rate 60"].upper == 2.0).all()
 
-    def test_model_stored_energy(self, model):
-        assert model.stored_energy.type == "LinearExpression"
+class TestBehaviour:
+    def test_charge_discharge_30min(self, realistic_battery_config):
+        time = pd.Index(pd.date_range("2018-01-01", periods=2, freq="30min"), name="time")
+        market_data = pd.DataFrame(
+            data={
+                "Price 30 min (£/MWh)": [40.0, 50.0],
+                "Price 60 min (£/MWh)": [45.0, 45.0],
+            },
+            index=time,
+        )
+        model = Model(realistic_battery_config, market_data)
+        model.solve()
+        pd.testing.assert_frame_equal(
+            model.variables.solution.to_dataframe(),
+            pd.DataFrame(
+                data={
+                    "is charging": [1.0, 0.0],
+                    "is discharging": [0.0, 1.0],
+                    "charge rate 30": [2.0, 0.0],  # first half-hour subject to charging losses, 0.95 MWh stored
+                    "discharge rate 30": [0.0, 1.9],  # second half-hour discharges all of stored energy = 2x0.95=1.9MW
+                    "charge rate 60": [0.0, 0.0],
+                    "discharge rate 60": [0.0, 0.0],
+                },
+                index=time,
+            )
+        )
+
+    def test_charge_discharge_60min(self, realistic_battery_config):
+        time = pd.Index(pd.date_range("2018-01-01", periods=4, freq="30min"), name="time")
+        market_data = pd.DataFrame(
+            data={
+                "Price 30 min (£/MWh)": [45.0, 50.0, 50.0, 50.0],
+                "Price 60 min (£/MWh)": [40.0, 40.0, 55.0, 55.0],
+            },
+            index=time,
+        )
+        model = Model(realistic_battery_config, market_data)
+        model.solve()
+        pd.testing.assert_frame_equal(
+            model.variables.solution.to_dataframe(),
+            pd.DataFrame(
+                data={
+                    "is charging": [1.0, 1.0, 0.0, 0.0],
+                    "is discharging": [0.0, 0.0, 1.0, 1.0],
+                    "charge rate 30": [0.0, 0.0, 0.0, 0.0],
+                    "discharge rate 30": [0.0, 0.0, 0.0, 0.0],
+                    "charge rate 60": [2.0, 2.0, 0.0, 0.0],  # hour 1 subject to charging losses, 1.9MWh stored
+                    "discharge rate 60": [0.0, 0.0, 1.9, 1.9],  # hour 2 discharges all of stored energy,
+                },
+                index=time,
+            )
+        )
