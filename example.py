@@ -17,7 +17,7 @@ def main():
         nrows=50,  # Limit datasize
     )
     model = Model(battery_config, market_data)
-    model.optimise()
+    model.solve(solver_name="highs")
     print(model.solution)
     model.plot_solution()
 

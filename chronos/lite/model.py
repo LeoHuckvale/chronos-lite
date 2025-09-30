@@ -2,7 +2,6 @@ from typing import Iterable
 
 import linopy
 import pandas as pd
-import xarray as xr
 
 from chronos.lite.plot import plot_solution
 
@@ -11,9 +10,6 @@ TIMESTEP_DURATION = 0.5
 
 #: Assume initial stored energy in the battery is 0.0 MWh
 INITIAL_STORED_ENERGY = 0.0
-
-#: Default solver is HiGHs, see https://pypi.org/project/highspy/
-DEFAULT_SOLVER = "highs"
 
 
 class Model(linopy.Model):
@@ -117,14 +113,6 @@ class Model(linopy.Model):
             ),
             sense="max",
         )
-
-    def optimise(self):
-        """
-        Solve the model.
-
-        This method calls the `linopy.Model.solve` method, imposing our default solver choice.
-        """
-        self.solve(solver_name=DEFAULT_SOLVER)
 
     def plot_solution(self):
         """
