@@ -43,7 +43,7 @@ def load_market_data(half_hourly_csv: os.PathLike, hourly_csv: os.PathLike, nrow
         18/09/2018 03:00, 51.6
         ```
     """
-    if nrows % 2 != 0:
+    if nrows is not None and nrows % 2 != 0:
         raise ValueError("nrows must be even")
 
     half_hourly_market_series = pd.read_csv(
