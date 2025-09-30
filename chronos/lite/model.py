@@ -41,7 +41,7 @@ class Model(linopy.Model):
     def __init__(self, battery_config: pd.Series, market_data: pd.DataFrame):
         super().__init__(force_dim_names=True)
 
-        self.time = pd.Index(market_data.index, name="time")
+        self.time = market_data.index
         self.battery_config = battery_config
         self.market_data = market_data
 
@@ -147,7 +147,7 @@ class Model(linopy.Model):
 
         This method calls the `linopy.Model.solve` method, imposing our default solver choice.
         """
-        super().solve(solver_name=DEFAULT_SOLVER)
+        self.solve(solver_name=DEFAULT_SOLVER)
 
     def plot_solution(self):
         """

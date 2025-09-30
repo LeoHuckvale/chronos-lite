@@ -69,7 +69,7 @@ def load_market_data(half_hourly_csv: os.PathLike, hourly_csv: os.PathLike, nrow
     ]).sort_index()
 
     index = half_hourly_market_series.index
-    index.name = "Time"
+    index.name = "time"
 
     return pd.DataFrame({
         "Price 30 min (£/MWh)": half_hourly_market_series,
