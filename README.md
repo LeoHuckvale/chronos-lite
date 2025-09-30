@@ -27,7 +27,8 @@ uv run task qa
 
 ## Approach
 
-1. Implemented a prototype in Jupyter notebook `00-prototype-linopy.ipynb`, in order to familiarise myself with linopy.
+1. Implemented a prototype in Jupyter notebook `00-prototype-linopy.ipynb`, in order to familiarise myself with linopy,
+    as well as to experiment with and understand the mathematics of the model.
     a. This model initially only considered the battery interacting with the 30min market, not subject to degradation.
     b. Later I extended this to cover both 30 and 60min markets, with additional constraints.
 2. Set up a package structure, organising data loading and model construction into separate modules.
