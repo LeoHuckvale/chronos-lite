@@ -37,6 +37,8 @@ class Model(linopy.Model):
         self.add_variables(lower=0, upper=self.battery_config["Max discharging rate"], coords=[self.time],
                            name="discharge rate 60")
 
+    def _init_constraints(self):
+        # Calculate stored energy as an expression which will be useful later
         self.stored_energy = (
             INITIAL_STORED_ENERGY +
             TIMESTEP_DURATION * (
@@ -47,7 +49,6 @@ class Model(linopy.Model):
             ).shift(time=1).cumsum()
         )
 
-    def _init_constraints(self):
         # Charging cannot occur at the same time as discharging
         self.add_constraints(
             self.variables["is charging"] + self.variables["is discharging"] <= 1,
