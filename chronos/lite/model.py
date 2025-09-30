@@ -120,3 +120,13 @@ class Model(linopy.Model):
         if self.solution is None:
             raise RuntimeError("Optimisation hasn't been run. Need to run .solve() method.")
         plot_solution(self.battery_config, self.market_data, self.stored_energy, self.solution)
+
+    def solution_to_dataframe(self) -> pd.DataFrame:
+        """
+        Output the solution
+        """
+        if self.solution is None:
+            raise RuntimeError("Optimisation hasn't been run. Need to run .solve() method.")
+        df = self.solution.to_dataframe()
+        df["stored energy"] = self.stored_energy.solution
+        return df
