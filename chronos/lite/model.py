@@ -16,27 +16,6 @@ INITIAL_STORED_ENERGY = 0.0
 DEFAULT_SOLVER = "highs"
 
 
-class Formulae:
-    @staticmethod
-    def stored_energy(
-        initial_stored_energy: float,
-        timestep_duration: float,
-        charge_rate_30: xr.DataArray,
-        charge_rate_60: xr.DataArray,
-        charge_efficiency: float,
-        discharge_rate_30: xr.DataArray,
-        discharge_rate_60: xr.DataArray,
-    ) -> Iterable[float]:
-        return (
-            initial_stored_energy +
-            timestep_duration * (
-                (charge_rate_30 + charge_rate_60) * charge_efficiency
-                -
-                (discharge_rate_30 + discharge_rate_60)
-            ).shift(time=1).cumsum()
-        )
-
-
 class Model(linopy.Model):
     def __init__(self, battery_config: pd.Series, market_data: pd.DataFrame):
         super().__init__(force_dim_names=True)
@@ -46,19 +25,7 @@ class Model(linopy.Model):
         self.market_data = market_data
 
         self._init_variables()
-        self.stored_energy = Formulae.stored_energy(
-            INITIAL_STORED_ENERGY,
-            TIMESTEP_DURATION,
-            charge_rate_30=self.variables["charge rate 30"],
-            charge_rate_60=self.variables["charge rate 60"],
-            charge_efficiency=(1 - self.battery_config["Battery charging loss"]),
-            discharge_rate_30=self.variables["discharge rate 30"],
-            discharge_rate_60=self.variables["discharge rate 60"],
-
-        )
-
         self._init_constraints()
-
         self._init_objective()
 
 
@@ -73,6 +40,16 @@ class Model(linopy.Model):
                            name="charge rate 60")
         self.add_variables(lower=0, upper=self.battery_config["Max discharging rate"], coords=[self.time],
                            name="discharge rate 60")
+
+        self.stored_energy = (
+            INITIAL_STORED_ENERGY +
+            TIMESTEP_DURATION * (
+                (self.variables["charge rate 30"] + self.variables["charge rate 60"])
+                * (1 - self.battery_config["Battery charging loss"])
+                -
+                (self.variables["discharge rate 30"] + self.variables["discharge rate 60"])
+            ).shift(time=1).cumsum()
+        )
 
     def _init_constraints(self):
         # Charging cannot occur at the same time as discharging
