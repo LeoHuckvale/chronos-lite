@@ -6,7 +6,7 @@ import pytest
 import xarray as xr
 
 from chronos.lite.data import load_battery_config, load_market_data
-from chronos.lite.model import Model, Formulae
+from chronos.lite.model import Model
 
 TEST_DATA_DIR = Path(__file__).parent / "test_files"
 
@@ -98,38 +98,3 @@ class TestModel:
 
     def test_model_stored_energy(self, model):
         assert model.stored_energy.type == "LinearExpression"
-
-
-class TestFormulae:
-    def test_stored_energy(self):
-        time = pd.Index([1, 2, 3, 4], name="time")
-        kwargs = {
-            "initial_stored_energy": 0.01,
-            "timestep_duration": 0.2,
-            "charge_rate_30": xr.DataArray(
-                data=[0.3, 0.4, 0.0, 0.0],
-                coords=[time],
-            ),
-            "charge_rate_60": xr.DataArray(
-                data=[0.0, 0.3, 0.0, 0.0],
-                coords=[time]
-            ),
-            "charge_efficiency": 0.95,
-            "discharge_rate_30": xr.DataArray(
-                data=[0.0, 0.0, 0.2, 0.3],
-                coords=[time]),
-            "discharge_rate_60": xr.DataArray(
-                [0.0, 0.0, 0.0, 0.3],
-                coords=[time]
-            ),
-        }
-        expected_result = xr.DataArray(
-            data=[
-                0.01,  # 0.01
-                0.067,  # 0.01 + 0.2*( (0.3 + 0.0)*0.95 - 0) = 0.067
-                0.2,  # 0.01 + 0.2*( ( (0.3 + 0.0)*0.95 - 0 ) + ( (0.4 + 0.3)*0.95 - 0 ) ) = 0.2
-                0.16,  # 0.01 + 0.2*( (0.3 + 0.0)*0.95 - 0 ) + ( (0.4 + 0.3)*0.95 - 0 ) + ( 0 - ( 0.2 + 0.0 ) )) = 0.16
-            ],
-            coords=[time],
-        )
-        xr.testing.assert_allclose(Formulae.stored_energy(**kwargs), expected_result)

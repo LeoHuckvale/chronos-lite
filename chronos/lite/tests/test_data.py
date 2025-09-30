@@ -49,6 +49,6 @@ def test_load_market_data():
                 51.06,
             ]
         },
-        index=pd.Index(pd.date_range("2018-01-01", periods=6, freq="30min"), name="Time")
+        index=pd.Index(pd.date_range("2018-01-01", periods=6, freq="30min"), name="time")
     )
     pd.testing.assert_frame_equal(actual_df, expected_df, check_freq=False)
