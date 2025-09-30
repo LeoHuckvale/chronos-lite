@@ -51,6 +51,16 @@ class Model(linopy.Model):
             ).shift(time=1).cumsum()
         )
 
+        self.n_cycles = (
+            (self.variables["charge rate 30"] + self.variables["charge rate 60"]).cumsum()
+            / self.battery_config["Max storage volume"]  # This is an approximation as max volume changes with cycles
+        ).round(0)
+        self.actual_capacity = (
+            self.battery_config["Max storage volume"]
+            * (1 - self.battery_config["Storage volume degradation rate"])**self.n_cycles
+        )
+
+
     def _init_constraints(self):
         # Charging cannot occur at the same time as discharging
         self.add_constraints(
