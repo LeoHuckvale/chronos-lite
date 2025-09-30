@@ -6,7 +6,6 @@ This module provides utility functions for loading battery configuration and mar
 
 """
 import os
-from typing import Optional
 
 import pandas as pd
 

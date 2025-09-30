@@ -1,5 +1,3 @@
-from typing import Iterable
-
 import linopy
 import pandas as pd
 

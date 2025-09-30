@@ -3,7 +3,6 @@ from pathlib import Path
 import linopy
 import pandas as pd
 import pytest
-import xarray as xr
 
 from chronos.lite.data import load_battery_config, load_market_data
 from chronos.lite.model import Model
