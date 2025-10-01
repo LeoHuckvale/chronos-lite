@@ -1,6 +1,4 @@
-"""
-Battery and Market Data Utility Functions
-=========================================
+"""Utility Functions for handling Battery and Market Data.
 
 This module provides utility functions for loading battery configuration and market data files.
 
@@ -11,8 +9,7 @@ import pandas as pd
 
 
 def load_battery_config(path: os.PathLike) -> dict:
-    """
-    Load battery config from CSV file
+    """Load battery config from CSV file.
 
     path: Path to CSV file containing battery config.
     """
@@ -20,8 +17,7 @@ def load_battery_config(path: os.PathLike) -> dict:
 
 
 def load_market_data(half_hourly_csv: os.PathLike, hourly_csv: os.PathLike, nrows: int | None = None) -> pd.DataFrame:
-    """
-    Load market data from CSV file
+    """Load market data from CSV file.
 
     half_hourly_csv: Path to CSV file containing half-hourly price data.
     hourly_csv: Path to CSV file containing hourly price data.

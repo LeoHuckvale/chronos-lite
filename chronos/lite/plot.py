@@ -1,3 +1,5 @@
+"""Utility functions to plot data."""
+
 import pandas as pd
 from matplotlib import pyplot as plt
 
@@ -8,6 +10,14 @@ def plot_solution(
     stored_energy,
     solution,
 ) -> plt.Figure:
+    """Generate a matplotlib figure showing key data from battery optimisation solution.
+
+    Includes four axes:
+    - Market prices (half-hourly and hourly)
+    - Stored energy in the battery
+    - Charge/discharge flow with the half-hourly market
+    - Charge/discharge flow with the hourly market
+    """
     fig, (axis_price, axis_energy, axis_flow_30, axis_flow_60) = plt.subplots(4, figsize=(12, 6), sharex=True)
     axis_energy.set_ylim(0, 1.1*battery_config["Max storage volume"])
     axis_flow_30.set_ylim(-1.25*battery_config["Max discharging rate"], 1.25*battery_config["Max charging rate"])

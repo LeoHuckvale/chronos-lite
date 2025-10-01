@@ -35,3 +35,9 @@ format = "ruff format"
 
 [tool.uv.sources]
 chronos-lite = { workspace = true }
+
+[tool.ruff.lint]
+select = ["D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

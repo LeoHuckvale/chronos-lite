@@ -1,3 +1,5 @@
+"""Test model module."""
+
 from pathlib import Path
 
 import linopy
@@ -11,14 +13,17 @@ TEST_DATA_DIR = Path(__file__).parent / "test_files"
 
 @pytest.fixture
 def battery_config():
+    """Simple battery config fixture used to validate setup."""
     return load_battery_config(TEST_DATA_DIR / "test_battery_config.csv")
 
 @pytest.fixture
 def realistic_battery_config():
+    """Realistic battery config fixture used to validate behaviour."""
     return load_battery_config(TEST_DATA_DIR / "realistic_battery_config.csv")
 
 @pytest.fixture
 def market_data():
+    """Market data fixture used to validate setup."""
     return load_market_data(
         half_hourly_csv=TEST_DATA_DIR / "test_30min_market_data.csv",
         hourly_csv=TEST_DATA_DIR / "test_60min_market_data.csv",
@@ -26,81 +31,74 @@ def market_data():
 
 @pytest.fixture
 def model(battery_config, market_data):
+    """Model fixture used to validate setup."""
     return Model(battery_config, market_data)
 
 
 class TestModel:
+    """Test basic Model setup."""
+
     def test_model_init(self, model):
+        """Model initialises correctly."""
+        # validated via `model` fixture
         pass
 
     def test_model_subclasses_linopy(self, model):
+        """Model subclasses linopy.Model."""
         assert isinstance(model, linopy.Model)
 
     def test_model_forces_dim_names(self, model):
+        """Model forces dimension names."""
         assert model._force_dim_names
 
     def test_model_coords(self, model):
+        """Model sets variable coordinates from date-time index in market data."""
         pd.testing.assert_index_equal(
             model.variables.coords.to_index(),
             pd.Index(pd.date_range("2018-01-01", periods=6, freq="30min"), name="time")
         )
 
     def test_model_variable_is_charging(self, model):
-        # "is charging" decision variable is:
-        # boolean
+        """Charging decision variable is boolean."""
         assert (model.variables["is charging"].type == "Binary Variable")
-        # lower bounded at 0
         assert (model.variables["is charging"].lower == 0.0).all()
-        # upper bounded at 1
         assert (model.variables["is charging"].upper == 1.0).all()
 
     def test_model_variable_is_discharging(self, model):
-        # "is discharging" decision variable is:
-        # boolean
+        """Discharging decision variable is boolean."""
         assert (model.variables["is discharging"].type == "Binary Variable")
-        # lower bounded at 0
         assert (model.variables["is discharging"].lower == 0.0).all()
-        # upper bounded at 1
         assert (model.variables["is discharging"].upper == 1.0).all()
 
     def test_model_variable_charge_rate_30(self, model):
-        # charge rate into 30min market is:
-        # continuous
+        """Charge rate into half-hourly market is continuous, bounded between 0 and max charge rate."""
         assert (model.variables["charge rate 30"].type == "Continuous Variable")
-        # lower bounded at 0
         assert (model.variables["charge rate 30"].lower == 0.0).all()
-        # upper bounded at max charge rate
         assert (model.variables["charge rate 30"].upper == 1.0).all()
 
     def test_model_variable_discharge_rate_30(self, model):
-        # discharge rate into 30min market is:
-        # continuous
+        """Discharge rate into half-hourly market is continuous, bounded between 0 and max discharge rate."""
         assert (model.variables["discharge rate 30"].type == "Continuous Variable")
-        # lower bounded at 0
         assert (model.variables["discharge rate 30"].lower == 0.0).all()
-        # upper bounded at max discharge rate
         assert (model.variables["discharge rate 30"].upper == 2.0).all()
 
     def test_model_variable_charge_rate_60(self, model):
-        # charge rate into 60min market is:
-        # continuous
+        """Charge rate into hourly market is continuous, bounded between 0 and max charge rate."""
         assert (model.variables["charge rate 60"].type == "Continuous Variable")
-        # lower bounded at 0
         assert (model.variables["charge rate 60"].lower == 0.0).all()
-        # upper bounded at max charge rate
         assert (model.variables["charge rate 60"].upper == 1.0).all()
 
     def test_model_variable_discharge_rate_60(self, model):
-        # discharge rate into 60min market is:
-        # continuous
+        """Discharge rate into hourly market is continuous, bounded between 0 and max discharge rate."""
         assert (model.variables["discharge rate 60"].type == "Continuous Variable")
-        # lower bounded at 0
         assert (model.variables["discharge rate 60"].lower == 0.0).all()
-        # upper bounded at max discharge rate
         assert (model.variables["discharge rate 60"].upper == 2.0).all()
 
 class TestBehaviour:
+    """Validate battery behaviour and constraints under different scenarios."""
+
     def test_charge_discharge_30min(self, realistic_battery_config):
+        """Battery can charge and discharge with half-hourly market."""
         time = pd.Index(pd.date_range("2018-01-01", periods=2, freq="30min"), name="time")
         market_data = pd.DataFrame(
             data={
@@ -127,6 +125,7 @@ class TestBehaviour:
         )
 
     def test_charge_discharge_60min(self, realistic_battery_config):
+        """Battery can charge and discharge with hourly market."""
         time = pd.Index(pd.date_range("2018-01-01", periods=4, freq="30min"), name="time")
         market_data = pd.DataFrame(
             data={

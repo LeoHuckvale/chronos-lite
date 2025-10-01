@@ -1,3 +1,5 @@
+"""Test data module."""
+
 from pathlib import Path
 
 import pandas as pd
@@ -8,6 +10,7 @@ TEST_DATA_DIR = Path(__file__).parent / "test_files"
 
 
 def test_load_battery_config():
+    """Battery configuration data loads correctly."""
     actual_battery_config = load_battery_config(TEST_DATA_DIR / "test_battery_config.csv")
     expected_battery_config = {
         "Max charging rate": 1.0,
@@ -25,6 +28,7 @@ def test_load_battery_config():
 
 
 def test_load_market_data():
+    """Market data loads correctly."""
     actual_df = load_market_data(
         half_hourly_csv=TEST_DATA_DIR / "test_30min_market_data.csv",
         hourly_csv=TEST_DATA_DIR / "test_60min_market_data.csv",

@@ -1,3 +1,5 @@
+"""Optimisation Model."""
+
 import os
 
 import linopy
@@ -13,21 +15,34 @@ INITIAL_STORED_ENERGY = 0.0
 
 
 class Model(linopy.Model):
+    """Optimisation Model class, subclassing `linopy.Model`."""
     def __init__(self, battery_config: dict, market_data: pd.DataFrame):
+        """Setup class.
+
+        :param battery_config: Battery configuration dictionary.
+        :param market_data: Market data dataframe.
+        """
+        # Call linopy.Model.__init__() method
         super().__init__(force_dim_names=True)
 
+        # Internalise source data and configuration
         self.time = market_data.index
         self.battery_config = battery_config
         self.market_data = market_data
 
+        # Set up model
         self._init_variables()
         self._init_constraints()
         self._init_objective()
 
 
     def _init_variables(self):
+        # Declare boolean decision variables - constraints will ensure charging and discharging are mutually exclusive
         self.add_variables(binary=True, coords=[self.time], name="is charging")
         self.add_variables(binary=True, coords=[self.time], name="is discharging")
+
+        # Declare continuous variables for charging and discharging rates, into half-hourly and hourly markets
+        # These are all bounded between 0 and the maximum charging/discharging rate
         self.add_variables(lower=0, upper=self.battery_config["Max charging rate"], coords=[self.time],
                            name="charge rate 30")
         self.add_variables(lower=0, upper=self.battery_config["Max discharging rate"], coords=[self.time],
@@ -101,6 +116,9 @@ class Model(linopy.Model):
         )
 
     def _init_objective(self):
+        # Declare our objective: to maximise profit.
+        # Profit for a given market =
+        #   (market price) * ( (discharge rate * discharge efficiency) - (charge rate / charge efficiency) )
         self.add_objective(
             (
                 self.market_data["Price 30 min (£/MWh)"] * (
@@ -116,17 +134,13 @@ class Model(linopy.Model):
         )
 
     def plot_solution(self):
-        """
-        Plot the solution of the model.
-        """
+        """Plot the solution of the model."""
         if self.solution is None:
             raise RuntimeError("Optimisation hasn't been run. Need to run .solve() method.")
         plot_solution(self.battery_config, self.market_data, self.stored_energy, self.solution)
 
     def solution_to_dataframe(self) -> pd.DataFrame:
-        """
-        Output the solution
-        """
+        """Output the solution as a Pandas DataFrame."""
         if self.solution is None:
             raise RuntimeError("Optimisation hasn't been run. Need to run .solve() method.")
         model_solution_df = self.solution.to_dataframe()
@@ -148,9 +162,7 @@ class Model(linopy.Model):
         return df
 
     def financial_summary(self) -> pd.DataFrame:
-        """
-        Return a financial summary of the model solution.
-        """
+        """Return a financial summary of the model solution as a Pandas DataFrame."""
         df = self.solution_to_dataframe()
         financial_df = df[["Export revenue", "Import cost"]].sum()
         financial_df["Capex"] = self.battery_config["Capex"]
@@ -166,9 +178,7 @@ class Model(linopy.Model):
         return financial_df
 
     def solution_to_excel(self, path: os.PathLike):
-        """
-        Output the solution to a file
-        """
+        """Output the solution to an Excel file."""
         if self.solution is None:
             raise RuntimeError("Optimisation hasn't been run. Need to run .solve() method.")
         df = self.solution_to_dataframe()
