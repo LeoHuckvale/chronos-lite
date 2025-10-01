@@ -132,7 +132,38 @@ class Model(linopy.Model):
         model_solution_df = self.solution.to_dataframe()
         stored_energy_df = self.stored_energy.solution.to_dataframe()
         stored_energy_df.columns = ["stored energy"]
-        return pd.concat([self.market_data, model_solution_df, stored_energy_df], axis=1)
+        df = pd.concat([self.market_data, model_solution_df, stored_energy_df], axis=1)
+        df["Export revenue"] = (
+            df["Price 30 min (£/MWh)"] * df["discharge rate 30"] * (
+                1 - self.battery_config["Battery discharging loss"])
+            +
+            df["Price 60 min (£/MWh)"] * df["discharge rate 60"] * (
+                    1 - self.battery_config["Battery discharging loss"])
+        )
+        df["Import cost"] = (
+            df["Price 30 min (£/MWh)"] * df["charge rate 30"] / (1 - self.battery_config["Battery charging loss"])
+            +
+            df["Price 60 min (£/MWh)"] * df["charge rate 60"] / (1 - self.battery_config["Battery charging loss"])
+        )
+        return df
+
+    def financial_summary(self) -> pd.DataFrame:
+        """
+        Return a financial summary of the model solution.
+        """
+        df = self.solution_to_dataframe()
+        financial_df = df[["Export revenue", "Import cost"]].sum()
+        financial_df["Capex"] = self.battery_config["Capex"]
+        nanoseconds_per_year = 365.25 * 24 * 3600 * 10 ** 9
+        financial_df["Opex"] = (
+            self.battery_config["Fixed Operational Costs"]
+            * (self.time.max() - self.time.min()).value / nanoseconds_per_year
+        )
+        financial_df["Total Profit"] = financial_df["Export revenue"] - (
+                financial_df["Import cost"] + financial_df["Opex"] + financial_df["Capex"])
+        financial_df["Start"] = self.time.min()
+        financial_df["End"] = self.time.max()
+        return financial_df
 
     def solution_to_excel(self, path: os.PathLike):
         """
@@ -144,3 +175,4 @@ class Model(linopy.Model):
         with pd.ExcelWriter(path, engine="xlsxwriter") as writer:
             pd.Series(self.battery_config).to_excel(writer, sheet_name="Battery Configuration")
             df.to_excel(writer, sheet_name="Run Data")
+            self.financial_summary().to_excel(writer, sheet_name="Financial Summary")

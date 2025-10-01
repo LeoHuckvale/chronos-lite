@@ -52,19 +52,19 @@ uv run task qa
         - [x] Code quality
     - [x] Bugs
         - [x] Fix battery efficiency/losses
-    - [ ] Features
+    - [x] Features
         - [x] Data model
             - [x] Market
             - [x] Battery
         - [x] Optimisation model
-        - [ ] Financial calculations
-            - [ ] Operational costs
-            - [ ] Import costs
-            - [ ] Export revenue
-            - [ ] Capex
-            - [ ] Net profit over data period
-        - [ ] Operational outputs, visualisations
-        - [ ] Execution script
+        - [x] Financial calculations
+            - [x] Operational costs
+            - [x] Import costs
+            - [x] Export revenue
+            - [x] Capex
+            - [x] Net profit over data period
+        - [x] Operational outputs, visualisations
+        - [x] Execution script/notebook
     - [ ] Feature validation
         - [x] Battery can charge from a market
         - [x] Battery can discharge to a market
